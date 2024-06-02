@@ -20,7 +20,8 @@ public class RedisService {
 
     public void storeEncryptedData(String encryptedPayload) {
         try {
-            String decryptedPayload = EncryptionUtil.decryptPayload(encryptedPayload);
+            String decryptedPayload;
+            decryptedPayload = EncryptionUtil.decryptPayload(encryptedPayload);
             redisTemplate.opsForValue().set("encryptedData", decryptedPayload, EXPIRATION_TIME, TimeUnit.MINUTES);
         } catch (Exception e) {
             throw new DecryptionException("Failed to decrypt payload: " + e.getMessage());
